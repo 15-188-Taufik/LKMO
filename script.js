@@ -1,40 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Sticky Navbar on Scroll
+    // 1. Sticky Navbar on Scroll (Tidak Berubah)
     const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('sticky');
-        } else {
-            navbar.classList.remove('sticky');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('sticky');
+            } else {
+                navbar.classList.remove('sticky');
+            }
+        });
+    }
 
-    // 2. Smooth Scrolling for Navigation Links (also closes mobile menu)
+    // 2. Smooth Scrolling (Disesuaikan untuk link antar halaman)
     const navLinks = document.querySelectorAll('.nav-links a');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                // Close mobile menu on link click
+            const href = this.getAttribute('href');
+            
+            // Jika link adalah hash link di halaman yang sama (index.html)
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href;
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                // Tutup menu mobile jika terbuka
                 document.querySelector('.nav-links').classList.remove('nav-active');
                 document.querySelector('.hamburger').classList.remove('toggle');
             }
+            // Jika link ke halaman lain (misal: index.html#category dari product.html),
+            // biarkan browser menanganinya secara normal.
         });
     });
     
-    // 3. Fade-in Animation on Scroll
+    // 3. Fade-in Animation on Scroll (Tidak Berubah)
     const fadeInElements = document.querySelectorAll('.fade-in');
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -42,95 +43,162 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
     fadeInElements.forEach(el => observer.observe(el));
 
-    // 4. Exclusive Offers Countdown Timer
-    const countdown = () => {
-        const endDate = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = endDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // 4. Exclusive Offers Countdown Timer (Diberi Pengecekan)
+    const countdownElement = document.getElementById('countdown');
+    if (countdownElement) {
+        const countdown = () => {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 10);
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endDate - now;
+                if (distance < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = "<div style='font-size: 1.5rem; font-weight: 500;'>OFFER EXPIRED</div>";
+                    return;
+                }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }, 1000);
+        };
+        countdown();
+    }
 
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    // 5. Seamless Carousel Function (Diberi Pengecekan)
+    const initializeCarousel = (wrapperSelector, trackSelector, prevBtnSelector, nextBtnSelector, intervalTime = 4000) => {
+        const carouselWrapper = document.querySelector(wrapperSelector);
+        const track = document.querySelector(trackSelector);
+        if (!carouselWrapper || !track) return; // Hanya berjalan jika carousel ada di halaman
+        
+        let slides = Array.from(track.children);
+        const nextButton = document.querySelector(nextBtnSelector);
+        const prevButton = document.querySelector(prevBtnSelector);
+        if (slides.length === 0) return;
 
-            if (distance < 0) {
-                clearInterval(interval);
-                document.getElementById('countdown').innerHTML = "<div>EXPIRED</div>";
+        // Kloning
+        const firstClone = slides[0].cloneNode(true);
+        const lastClone = slides[slides.length - 1].cloneNode(true);
+        track.appendChild(firstClone);
+        track.insertBefore(lastClone, slides[0]);
+        slides = Array.from(track.children);
+        
+        const slideWidth = slides[0].getBoundingClientRect().width + 20; 
+        let currentIndex = 1; 
+        let autoSlideInterval;
+        track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+
+        const moveToSlide = (index) => {
+            track.style.transition = 'transform 0.5s ease-in-out';
+            track.style.transform = `translateX(-${slideWidth * index}px)`;
+        };
+        const slideNext = () => {
+            currentIndex++;
+            moveToSlide(currentIndex);
+            if (currentIndex >= slides.length - 1) { 
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    currentIndex = 1;
+                    track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+                }, 500); 
             }
-        }, 1000);
+        };
+        const slidePrev = () => {
+            currentIndex--;
+            moveToSlide(currentIndex);
+            if (currentIndex <= 0) { 
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    currentIndex = slides.length - 2;
+                    track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+                }, 500);
+            }
+        };
+        
+        nextButton.addEventListener('click', slideNext);
+        prevButton.addEventListener('click', slidePrev);
+        const startAutoSlide = () => {
+            stopAutoSlide();
+            autoSlideInterval = setInterval(slideNext, intervalTime);
+        };
+        const stopAutoSlide = () => clearInterval(autoSlideInterval);
+        
+        startAutoSlide();
+        carouselWrapper.addEventListener('mouseenter', stopAutoSlide);
+        carouselWrapper.addEventListener('mouseleave', startAutoSlide);
     };
-    countdown();
 
-    // 5. DIUBAH: Carousel Logic with Autoplay and Loop
-    const carouselWrapper = document.querySelector('.carousel-wrapper');
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.next-btn');
-    const prevButton = document.querySelector('.prev-btn');
-    const slideWidth = slides[0].getBoundingClientRect().width + 20; // 20 is the gap
+    // Inisialisasi carousel (hanya berjalan di index.html)
+    initializeCarousel('.carousel-wrapper', '.carousel-track', '.prev-btn', '.next-btn', 3000);
 
-    let currentIndex = 0;
-    let autoSlideInterval;
-
-    // Fungsi untuk pindah slide
-    const moveToSlide = (index) => {
-        track.style.transform = 'translateX(-' + slideWidth * index + 'px)';
-    };
-
-    // Fungsi untuk slide berikutnya dengan loop
-    const slideNext = () => {
-        currentIndex++;
-        if (currentIndex >= slides.length) {
-            currentIndex = 0; // Kembali ke awal jika sudah di akhir
-        }
-        moveToSlide(currentIndex);
-    };
-    
-    // Fungsi untuk slide sebelumnya dengan loop
-    const slidePrev = () => {
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = slides.length - 1; // Pindah ke akhir jika sudah di awal
-        }
-        moveToSlide(currentIndex);
-    };
-    
-    // Event listener untuk tombol
-    nextButton.addEventListener('click', slideNext);
-    prevButton.addEventListener('click', slidePrev);
-
-    // Fungsi untuk memulai auto-slide
-    const startAutoSlide = () => {
-        autoSlideInterval = setInterval(slideNext, 3000); // Ganti slide setiap 3 detik
-    };
-    
-    // Fungsi untuk menghentikan auto-slide
-    const stopAutoSlide = () => {
-        clearInterval(autoSlideInterval);
-    };
-    
-    // Mulai auto-slide saat halaman dimuat
-    startAutoSlide();
-
-    // Hentikan auto-slide saat mouse di atas carousel, dan mulai lagi saat mouse keluar
-    carouselWrapper.addEventListener('mouseenter', stopAutoSlide);
-    carouselWrapper.addEventListener('mouseleave', startAutoSlide);
-
-
-    // 6. Hamburger Menu Toggle
+    // 6. Hamburger Menu Toggle (Tidak Berubah)
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-links');
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('toggle');
+            navMenu.classList.toggle('nav-active');
+        });
+    }
 
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('toggle');
-        navMenu.classList.toggle('nav-active');
-    });
+    // =========================================================
+    // ======== 7. BARU: Logika untuk Halaman Produk ========
+    // =========================================================
+    // Cek apakah kita berada di halaman produk
+    if (document.getElementById('product-details')) {
+        
+        // Fungsi untuk mengisi halaman dengan data produk
+        const loadProductDetails = () => {
+            // 1. Baca ID produk dari URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            // 2. Ambil data produk dari 'database' (allProducts dari products.js)
+            const product = allProducts[productId];
+
+            // 3. Jika produk ditemukan, isi halaman
+            if (product) {
+                document.getElementById('product-image').src = product.imageUrl;
+                document.getElementById('product-image').alt = product.name;
+                document.getElementById('product-name').textContent = product.name;
+                document.getElementById('product-price').textContent = product.price;
+                document.getElementById('product-specs').innerHTML = product.specs;
+                document.getElementById('product-description').textContent = product.description;
+                document.title = `${product.name} - Fashion Store`; // Update judul tab browser
+            } else {
+                // Jika ID tidak ditemukan, tampilkan pesan error
+                document.getElementById('product-name').textContent = "Produk Tidak Ditemukan";
+                document.getElementById('product-description').textContent = "Maaf, produk yang Anda cari tidak ada.";
+            }
+        };
+
+        // Panggil fungsi untuk memuat data
+        loadProductDetails();
+
+        // Logika untuk Opsi Warna
+        const colorDots = document.querySelectorAll('.color-options .color-dot');
+        colorDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                colorDots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+            });
+        });
+
+        // Logika untuk Opsi Ukuran
+        const sizeButtons = document.querySelectorAll('.size-options .size-btn');
+        sizeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                sizeButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+    }
 });
