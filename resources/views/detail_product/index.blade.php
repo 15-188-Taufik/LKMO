@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Fashion Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header id="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="index.html#category">Category</a></li>
+                <li><a href="index.html#offers">Service</a></li>
+                <li><a href="index.html#testimonials">More</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="product-details" class="product-details-section fade-in">
+            <div class="product-gallery">
+                <img src="" alt="Product Image" id="product-image">
+            </div>
+
+            <div class="product-info">
+                <h1 id="product-name">Memuat nama produk...</h1>
+                <p class="product-price" id="product-price">...</p>
+                
+                <div class="product-options">
+                    <div class="option-group">
+                        <h3>Warna:</h3>
+                        <div class="color-options">
+                            <span class="color-dot active" style="background-color: #3a5a8a;" data-color="Blue"></span>
+                            <span class="color-dot" style="background-color: #222222;" data-color="Black"></span>
+                            <span class="color-dot" style="background-color: #f1f1f1; border: 1px solid #ccc" data-color="White"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3>Ukuran:</h3>
+                        <div class="size-options">
+                            <button class="size-btn active">S</button>
+                            <button class="size-btn">M</button>
+                            <button class="size-btn">L</button>
+                            <button class="size-btn">XL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-actions">
+                    <button class="btn btn-add-cart">Masukkan ke Keranjang</button>
+                    <button class="btn btn-buy-now">Beli Sekarang</button>
+                </div>
+
+                <div class="product-description-tabs">
+                    <h2>Spesifikasi Produk</h2>
+                    <div id="product-specs">
+                        </div>
+
+                    <h2>Deskripsi Produk</h2>
+                    <p id="product-description">
+                        </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recommendations" class="product-section fade-in">
+            <h2>Produk Serupa</h2>
+            <div class="static-product-grid">
+                <a href="product.html?id=p4" class="product-link">
+                    <div class="product-card"><img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&q=80" alt="Product 4"><h3>Classic Trench Coat</h3><p>$120.00</p></div>
+                </a>
+                <a href="product.html?id=p5" class="product-link">
+                    <div class="product-card"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Product 5"><h3>Minimalist Hoodie</h3><p>$75.00</p></div>
+                </a>
+                <a href="product.html?id=p7" class="product-link">
+                    <div class="product-card"><img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&q=80" alt="Urban Sneaker"><h3>Urban Sneakers</h3><p>$110.00</p></div>
+                </a>
+                <a href="product.html?id=p8" class="product-link">
+                    <div class="product-card"><img src="https://images.unsplash.com/photo-1677555465624-30ec4088f4c4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Bomber Jacket"><h3>Bomber Jacket</h3><p>$145.00</p></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-column"><h3>Shop</h3><ul><li><a href="#">Shop</a></li><li><a href="#">Product</a></li><li><a href="#">Overview</a></li><li><a href="#">Releases</a></li></ul></div>
+            <div class="footer-column"><h3>Company</h3><ul><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="#">News</a></li></ul></div>
+            <div class="footer-column"><h3>Support</h3><ul><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li><li><a href="#">Cookie</a></li></ul></div>
+        </div>
+        <div class="copyright"><p>&copy; 2025 Fashion Store. All Rights Reserved.</p></div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
