@@ -9,7 +9,7 @@ const Footer = () => {
                     <Link href="/" className="mb-10-block">
                         <Image src="/logo_putih.png" width={128} height={49} alt="logo" />
                     </Link>
-                    <p className="text=gray-500">
+                    <p className="text-gray-200">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur expedita labore debitis animi aperiam nisi!
                     </p>
                 </div>
@@ -56,7 +56,7 @@ const Footer = () => {
                 
                 <div>
                     <h4 className="mb-8 text-xl font-semibold text-white">Newsletter</h4>
-                    <p className="text-gray-400">
+                    <p className="text-gray-300">
                         Lorem ipsum, dolor sit amet consectetur adipisicing.
                     </p>
                     <form action="" className="mt-5">
