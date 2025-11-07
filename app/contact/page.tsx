@@ -13,13 +13,13 @@ export const metadata:Metadata = {
 const ContactPage = () => {
   return (
     <div>
-        <HeaderSection title="Contact Us" subTitle="lorem Ipsum dolor sit amet"/>
+        <HeaderSection title="Contact Us" subTitle="Contact us for More"/>
         <div className="max-w-screen-xl mx-auto py-20 px-4">
             <div className="grid md:grid-cols-2 gap-8">
                 <div>
                     <h1 className="text-ls text-gray-500 mb-3">Contact Us</h1>
                     <h1 className="text-5xl font-semibold text-gray-900 mb-4">Get In Touch Today</h1>
-                    <p className="text=gray-700 py-5"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque delectus in ratione consequatur nemo ullam minus, a sed, repellendus odit autem quaerat maiores ex odio dignissimos amet sit ab provident.</p>
+                    <p className="text=gray-700 py-5"> Wanna talk more? Just Email or Call us!</p>
                     <ul className="list-item space-y-6 pt-8">
                         <li className="flex gap-5">
                             <div className="flex-none ng-gray-300 p-3 shadow-sm rounded-sm">
@@ -45,7 +45,7 @@ const ContactPage = () => {
                             </div>
                             <div className="flex-1">
                                 <h4 className="text-lg font-semibold mb-1">Address :</h4>
-                                <p>Informatika ITERA, LPG, Indonesia</p>
+                                <p>Informatika ITERA, Indonesia</p>
                             </div>
                         </li>
                     </ul>
