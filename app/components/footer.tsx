@@ -13,23 +13,25 @@ const Footer = () => {
                         Nyaline.id adalah platform reservasi hotel berbasis web yang dirancang untuk memberikan pengalaman pemesanan kamar yang cepat, aman, dan nyaman.
                     </p>
                 </div>
-                <div>
-                    <h4 className="mb-8 text-xl font-semibold text-white">Links</h4>
-                    <ul className="list-item space-y-5 text text-gray-400">
-                        <li>
-                            <Link href="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link href="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link href="/room">Rooms</Link>
-                        </li>
-                        <li>
-                            <Link href="/contact">Contact Us</Link>
-                        </li>
-                        
-                    </ul>
+                <div className="flex justify-center">
+                    <div>
+                        <h4 className="mb-8 text-xl font-semibold text-white">Links</h4>
+                        <ul className="list-item space-y-5 text text-gray-400">
+                            <li>
+                                <Link href="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link href="/about">About</Link>
+                            </li>
+                            <li>
+                                <Link href="/room">Rooms</Link>
+                            </li>
+                            <li>
+                                <Link href="/contact">Contact Us</Link>
+                            </li>
+                            
+                        </ul>
+                    </div>
                 </div>
                 
                 <div>
