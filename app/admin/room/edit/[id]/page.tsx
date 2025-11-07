@@ -8,7 +8,6 @@ const UpdateRoomPage = async ({
     params: Promise<{ id: string }>
 }) => {
     
-    // PERBAIKAN: Di Next.js 15, params adalah Promise
     const { id: roomId } = await params;
 
     if (!roomId) return notFound();

@@ -12,28 +12,24 @@ const MyReservationPage = async () => {
   if (!session || !session.user) redirect("/signin")
     
   return (
-    <div className="min-h-screen bg-slate-50">
-  <div className="max-w-screen-lg mx-auto px-4 py-20 mt-10">
-    
-    {/* Header Section */}
-    <header className="mb-8 text-center md:text-left">
-      <h3 className="text-2xl font-semibold text-gray-800">
-        Hi, {session.user.name}
-      </h3>
-      <p className="text-gray-600 mt-1">
-        Here&apos;s your booking history:
-      </p>
-    </header>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-screen-xl mx-auto px-4 py-8 mt-16">
+        
+        {/* Header Section */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            My Reservations
+          </h1>
+          <p className="text-gray-600">
+            Hi, <span className="font-semibold text-gray-900">{session.user.name}</span>! Here&apos;s your booking history.
+          </p>
+        </div>
 
-    {/* Reservation List Section */}
-    <div className="">
-      <section className="rounded-lg bg-white shadow-sm border border-gray-200 p-4">
+        {/* Reservation List Section */}
         <MyReserveList />
-      </section>
-    </div>
 
-  </div>
-</div>
+      </div>
+    </div>
   )
 }
 

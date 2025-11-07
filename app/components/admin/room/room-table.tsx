@@ -12,11 +12,11 @@ const RoomTable = async() => {
         <table className='w-full divide-y divide-gray-200'>
             <thead>
                 <tr>
-                    <th className='px-6 py-3 w-32 tsxt-sm font-bold text-gray-700 uppercase'>Image</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Room Name</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Price</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Created At</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase'>Actions</th>
+                    <th className='px-6 py-3 w-32 text-sm font-bold text-gray-700 uppercase'>Image</th>
+                    <th className='px-6 py-3 text-sm font-bold text-gray-700 uppercase text-left'>Room Name</th>
+                    <th className='px-6 py-3 text-sm font-bold text-gray-700 uppercase text-left'>Price</th>
+                    <th className='px-6 py-3 text-sm font-bold text-gray-700 uppercase text-left'>Created At</th>
+                    <th className='px-6 py-3 text-sm font-bold text-gray-700 uppercase'>Actions</th>
                 </tr>
             </thead>
             <tbody className='divide-y divide-gray-200'>

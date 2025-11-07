@@ -20,7 +20,10 @@ export const POST = async (request: Request) => {
         },
         customer_details: {
             first_name: reservation.User.name,
-            emaiil: reservation.User.email,
+            email: reservation.User.email,
+        },
+        callbacks: {
+            finish: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/payment/success?transaction_status=settlement`,
         }
     }
 

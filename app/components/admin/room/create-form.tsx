@@ -53,7 +53,7 @@ const CreateForm = ({amenities}:{amenities:Amenities[]}) => {
           });
           setImage("")
           } catch (error){
-            console.log(error);
+            
         }
       });
     }
@@ -93,11 +93,12 @@ const CreateForm = ({amenities}:{amenities:Amenities[]}) => {
                <div className="flex items-center gap-1" key={item.id}>
                <input
                  type="checkbox"
+                 id={`amenity-create-${item.id}`}
                  name="amenities"
                  defaultValue={item.id}
                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
                />
-               <label className="text-sm font-medium text-gray-900 capitalize">
+               <label htmlFor={`amenity-create-${item.id}`} className="text-sm font-medium text-gray-900 capitalize">
                  {item.name}
                </label>
              </div>
@@ -162,8 +163,12 @@ const CreateForm = ({amenities}:{amenities:Amenities[]}) => {
   )}
 
   <div className="mb-4">
+    <label htmlFor="capacity" className="block mb-2 text-sm font-medium text-gray-900">
+      Capacity (Person)
+    </label>
     <input
       type="text"
+      id="capacity"
       name="capacity"
       placeholder="Capacity..."
       className="py-2 px-4 rounded-sm border border-gray-400 w-full"
@@ -174,8 +179,12 @@ const CreateForm = ({amenities}:{amenities:Amenities[]}) => {
   </div>
 
   <div className="mb-4">
+    <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">
+      Price (IDR/Night)
+    </label>
     <input
       type="text"
+      id="price"
       name="price"
       placeholder="Price..."
       className="py-2 px-4 rounded-sm border border-gray-400 w-full"

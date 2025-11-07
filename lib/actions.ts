@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { differenceInCalendarDays } from "date-fns";
 
-// CREATE ROOM
 export const saveRoom = async (image: string, prevState: unknown, formData: FormData) => {
   if (!image) return { message: "Image is Required" };
 
@@ -50,7 +49,6 @@ export const saveRoom = async (image: string, prevState: unknown, formData: Form
   redirect("/admin/room");
 };
 
-// DELETE ROOM
 export const deleteRoom = async (id: string, image: string) => {
   try {
     await del(image);
@@ -63,12 +61,9 @@ export const deleteRoom = async (id: string, image: string) => {
   revalidatePath("/admin/room");
 };
 
-//Create Reserve room
 export const createReserve = async (
   roomId: string,
   price: number,
-  startDate: Date,
-  endDate: Date,
   prevState: unknown,
   formData: FormData
 ) => {
@@ -79,6 +74,17 @@ export const createReserve = async (
     name: formData.get("name"),
     phone: formData.get("phone"),
   }
+
+  // Ambil tanggal dari FormData
+  const startDateStr = formData.get("startDate");
+  const endDateStr = formData.get("endDate");
+  
+  if (!startDateStr || !endDateStr) {
+    return { messageDate: "Please select arrival and departure dates" };
+  }
+
+  const startDate = new Date(startDateStr as string);
+  const endDate = new Date(endDateStr as string);
 
   const validatedFields = ReserveSchema.safeParse(rawData);
 
@@ -120,12 +126,11 @@ export const createReserve = async (
       reservationId = reservation.id;
     })
   } catch (error) {
-    console.log(error)
+    throw error;
   }
   redirect(`/checkout/${reservationId}`);
 };
 
-// UPDATE ROOM
 export const updateRoom = async (
   roomId: string,
   image: string,
@@ -150,12 +155,10 @@ export const updateRoom = async (
   const { name, description, price, capacity, amenities } = validatedFields.data;
 
   try {
-    // Delete existing amenities first
     await prisma.roomAmenities.deleteMany({
       where: { roomId },
     });
 
-    // Update room and create new amenities
     await prisma.room.update({
       where: { id: roomId },
       data: {
@@ -167,7 +170,6 @@ export const updateRoom = async (
       },
     });
 
-    // Create new amenities if any
     if (amenities.length > 0) {
       await prisma.roomAmenities.createMany({
         data: amenities.map((item) => ({
@@ -185,7 +187,6 @@ export const updateRoom = async (
   redirect("/admin/room");
 };
 
-// CONTACT
 export const ContactMessage = async (prevState: unknown, formData: FormData) => {
   const validateFields = ContactSchema.safeParse(Object.fromEntries(formData.entries()));
 

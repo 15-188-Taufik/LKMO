@@ -7,56 +7,65 @@ const ReservationList = async() => {
     const reservation = await getReservations();
     if(!reservation) return <p>No Reservation Found</p>
   return (
-    <div className='bg-white p-4 mt-5 shadow-sm'>
+    <div className='bg-white rounded-lg shadow-lg overflow-hidden'>
+        <div className='overflow-x-auto'>
         <table className='w-full divide-y divide-gray-200'>
-            <thead>
+            <thead className='bg-gray-50'>
                 <tr>
-                    <th className='px-6 py-3 w-32 tsxt-sm font-bold text-gray-700 uppercase'>Image</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Name</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Arrival</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Departure</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Room Name</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Price</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase text-left'>Created At</th>
-                    <th className='px-6 py-3 tsxt-sm font-bold text-gray-700 uppercase'>Status</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Image</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Guest Name</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Check-in</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Check-out</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Room</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Total Price</th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Booked Date</th>
+                    <th className='px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider'>Status</th>
                 </tr>
             </thead>
-            <tbody className='divide-y divide-gray-200'>
+            <tbody className='bg-white divide-y divide-gray-200'>
                 {
                     reservation.map((reserve) => (
-                        <tr className='hover:bg-gray-100' key={reserve.id}>
-                            <td className='px-6 py-4' >
-                                <div className="h-20 w-32 relative">
+                        <tr className='hover:bg-gray-50 transition-colors' key={reserve.id}>
+                            <td className='px-6 py-4'>
+                                <div className="h-16 w-24 relative rounded-md overflow-hidden">
                                     <Image src={reserve.Room.image} fill sizes="20vw" alt="room image"
                                     className="object-cover"/>
                                 </div>
                             </td>
                             <td className='px-6 py-4'>
-                                {reserve.User.name}
+                                <div className="font-medium text-gray-900">{reserve.User.name}</div>
+                                <div className="text-sm text-gray-500">{reserve.User.email}</div>
                             </td>
-                            <td className='px-6 py-4'>
+                            <td className='px-6 py-4 text-gray-700'>
                                 {formatDate(reserve.startDate.toISOString())}
                             </td>
-                            <td className='px-6 py-4'>
+                            <td className='px-6 py-4 text-gray-700'>
                                 {formatDate(reserve.endDate.toISOString())}
                             </td>
                             <td className='px-6 py-4'>
-                                {reserve.Room.name}
+                                <div className="font-medium text-gray-900">{reserve.Room.name}</div>
                             </td>
                             <td className='px-6 py-4'>
-                                {formatCurrency(reserve.price)}
+                                <div className="font-semibold text-gray-900">{formatCurrency(reserve.price)}</div>
                             </td>
-                            <td className='px-6 py-4'>
+                            <td className='px-6 py-4 text-gray-500 text-sm'>
                                 {formatDate(reserve.createdAt.toISOString())}
                             </td>
-                            <td className='px-6 py-4 text-right'>
-                                <span className="capitalize">{reserve.Payment?.status}</span>
+                            <td className='px-6 py-4 text-center'>
+                                <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full capitalize ${
+                                    reserve.Payment?.status === 'success' ? 'bg-green-100 text-green-800' :
+                                    reserve.Payment?.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-red-100 text-red-800'
+                                }`}>
+                                    {reserve.Payment?.status || 'pending'}
+                                </span>
                             </td>
                         </tr>
                     ))
                 }
             </tbody>
         </table>
+        </div>
     </div>
   )
 }

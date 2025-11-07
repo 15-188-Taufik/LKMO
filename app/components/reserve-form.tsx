@@ -15,17 +15,21 @@ const ReserveForm = ({
     disabledDate: DisabledDateProps[];
 }) => {
     const StartDate = new Date();
-    const EndDate =addDays(StartDate, 1);
+    const EndDate = addDays(StartDate, 1);
 
-    const [startDate, setStartDate] = useState(StartDate);
-    const [endDate, setEndDate] = useState(EndDate);
+    const [startDate, setStartDate] = useState<Date | null>(StartDate);
+    const [endDate, setEndDate] = useState<Date | null>(EndDate);
 
     const handleDateChange = (dates: [Date | null, Date | null]) => {
         const [start, end] = dates;
-        setStartDate(start ?? StartDate);
-        setEndDate(end ?? EndDate);
+        setStartDate(start);
+        setEndDate(end);
     };
-    const [state, formAction, isPending] = useActionState(createReserve.bind(null, room.id, room.price, startDate, endDate), null)
+    
+    const [state, formAction, isPending] = useActionState(
+        createReserve.bind(null, room.id, room.price), 
+        null
+    )
 
     const excludeDates = disabledDate.map((item) => {
         return{
@@ -36,9 +40,14 @@ const ReserveForm = ({
   return (
     <div>
         <form action={formAction}>
+            {/* Hidden inputs untuk tanggal */}
+            <input type="hidden" name="startDate" value={startDate?.toISOString() || ''} />
+            <input type="hidden" name="endDate" value={endDate?.toISOString() || ''} />
+            
             <div className="mb-4">
-                <label htmlFor="block mb-2 text-sm font-medium text-gray-900">Arrival - Departure</label>
+                <label htmlFor="datepicker" className="block mb-2 text-sm font-medium text-gray-900">Check-in & Check-out Date</label>
                 <DatePicker 
+                id="datepicker"
                 selected={startDate}
                 startDate={startDate}
                 endDate={endDate}
@@ -46,35 +55,50 @@ const ReserveForm = ({
                 selectsRange={true}
                 onChange={handleDateChange}
                 excludeDateIntervals={excludeDates}
-                dateFormat={"dd-MM-YYYY"}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Select check-in and check-out dates"
+                monthsShown={2}
                 wrapperClassName="w-full"
-                className="py-2 px-4 rounded-md border border-gray-300 w-full"
+                className="py-2 px-4 rounded-md border border-gray-300 w-full focus:ring-2 focus:ring-orange-400 focus:border-transparent"
                 />
+                <p className="text-xs text-gray-500 mt-1">Click to select check-in date, then click again to select check-out date</p>
                 <div aria-live="polite" aria-atomic="true">
                     <p className="text-sm text-red-500 mt-2">{state?.messageDate}</p>
                 </div>
             </div>
             <div className="mb-4">
-                <label htmlFor="block mb-2 text-sm font-medium text-gray-900">Your Name</label>
-                    <input type="text" name="name" className="py-2 px-4 rounded-md border border-gray-300 w-full" placeholder="Full Name..." />
+                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Your Name</label>
+                    <input 
+                        type="text" 
+                        id="name"
+                        name="name" 
+                        className="py-2 px-4 rounded-md border border-gray-300 w-full focus:ring-2 focus:ring-orange-400 focus:border-transparent" 
+                        placeholder="Full Name..." 
+                    />
                 <div aria-live="polite" aria-atomic="true">
                     <p className="text-sm text-red-500 mt-2">{state?.error?.name}</p>
                 </div>
             </div>
             <div className="mb-4">
-                <label htmlFor="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                    <input type="text" name="phone" className="py-2 px-4 rounded-md border border-gray-300 w-full" placeholder="Phone Number..." />
+                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                    <input 
+                        type="text" 
+                        id="phone"
+                        name="phone" 
+                        className="py-2 px-4 rounded-md border border-gray-300 w-full focus:ring-2 focus:ring-orange-400 focus:border-transparent" 
+                        placeholder="Phone Number..." 
+                    />
                 <div aria-live="polite" aria-atomic="true">
                     <p className="text-sm text-red-500 mt-2">{state?.error?.phone}</p>
                 </div>
             </div>
             <button 
-            disabled={isPending} 
+            disabled={isPending || !startDate || !endDate} 
             type="submit" 
-            className={clsx("px-10 py-3 text-center font-semibold text-white w-full bg-orange-400 rounded-sm cursor-pointer hover:bg-orange-500",{
-                "opacity-50 cursor-progress" :isPending,
+            className={clsx("px-10 py-3 text-center font-semibold text-white w-full bg-orange-400 rounded-sm cursor-pointer hover:bg-orange-500 transition-colors",{
+                "opacity-50 cursor-not-allowed" : isPending || !startDate || !endDate,
             })}>
-             {isPending ? "Loading..." : "Reserve Now"}   
+             {isPending ? "Processing..." : "Reserve Now"}   
             </button>
     </form>
     </div>

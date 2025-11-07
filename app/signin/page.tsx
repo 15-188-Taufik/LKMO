@@ -13,7 +13,6 @@ const SignInPage = async ({
   const params = (await searchParams)?.redirect_url;
 
   let redirectUrl;
-  // let redirectUrl = params ? `/${params}` : "/";
   if(!params) {
     redirectUrl = "/"
   } else{

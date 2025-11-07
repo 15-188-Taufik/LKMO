@@ -31,7 +31,7 @@ const PaymentSuccess =async ({
                     <div className="py-10 text-center">
                         <Link 
                         href="/myreservation"
-                        className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3"
+                        className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition-colors"
                         >
                             GO TO MY RESERVATION
                         </Link>

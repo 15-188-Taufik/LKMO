@@ -12,32 +12,52 @@ const DashboardCards = async () => {
 
     if(!data || !customer) return notFound();
   return (
-    <div className='grid md:grid-cols-3 gap-5 pb-10 mt-2'>
-        <div className="flex items-center bg-white border rounded-md overflow-hidden shadow-sm">
-            <div className="p-4 bg-green-400">
-                <LuChartArea className='size-12 text-white'/>
-            </div>
-            <div className="px-4 text-gray-700">
-                <h3 className='text-sm tracking-wider'>Total Revenue</h3>
-                <p className='text-3xl'>{formatCurrency(data.revenue)}</p>
-            </div>
-        </div>
-        <div className="flex items-center bg-white border rounded-md overflow-hidden shadow-sm">
-            <div className="p-4 bg-green-400">
-                <LuShoppingCart className='size-12 text-white'/>
-            </div>
-            <div className="px-4 text-gray-700">
-                <h3 className='text-sm tracking-wider'>Total Reservation</h3>
-                <p className='text-3xl'>{data.reserve}</p>
+    <div className='grid md:grid-cols-3 gap-6 mb-8'>
+        {/* Total Revenue Card */}
+        <div className="group bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <LuChartArea className='size-8 text-white'/>
+                    </div>
+                    <div className="text-white/80 text-sm font-medium">This Month</div>
+                </div>
+                <div className="text-white">
+                    <h3 className='text-sm font-medium mb-1 text-white/90'>Total Revenue</h3>
+                    <p className='text-3xl font-bold'>{formatCurrency(data.revenue)}</p>
+                </div>
             </div>
         </div>
-        <div className="flex items-center bg-white border rounded-md overflow-hidden shadow-sm">
-            <div className="p-4 bg-green-400">
-                <LuUsers className='size-12 text-white'/>
+
+        {/* Total Reservation Card */}
+        <div className="group bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <LuShoppingCart className='size-8 text-white'/>
+                    </div>
+                    <div className="text-white/80 text-sm font-medium">All Time</div>
+                </div>
+                <div className="text-white">
+                    <h3 className='text-sm font-medium mb-1 text-white/90'>Total Reservations</h3>
+                    <p className='text-3xl font-bold'>{data.reserve}</p>
+                </div>
             </div>
-            <div className="px-4 text-gray-700">
-                <h3 className='text-sm tracking-wider'>Total Customer</h3>
-                <p className='text-3xl'>{customer.length}</p>
+        </div>
+
+        {/* Total Customer Card */}
+        <div className="group bg-gradient-to-br from-green-500 to-green-600 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <LuUsers className='size-8 text-white'/>
+                    </div>
+                    <div className="text-white/80 text-sm font-medium">Active</div>
+                </div>
+                <div className="text-white">
+                    <h3 className='text-sm font-medium mb-1 text-white/90'>Total Customers</h3>
+                    <p className='text-3xl font-bold'>{customer.length}</p>
+                </div>
             </div>
         </div>
     </div>
