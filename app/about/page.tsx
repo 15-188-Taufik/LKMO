@@ -20,32 +20,15 @@ const AboutPage = () => {
                         Who We Are?
                     </h1>
                     <p className="text-gray-700 py-5">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus sit ipsa doloribus ad sequi fugit consequuntur praesentium suscipit voluptatibus in.
+                        Nyaline.id adalah platform reservasi hotel berbasis web yang dirancang untuk memberikan pengalaman pemesanan kamar yang cepat, aman, dan nyaman.
                     </p>
-                    <ul className="list-item space-y-6 pt-8">
-                        <li className="flex gap-5">
-                            <div className="flex-none mt-1">
-                                <IoEyeOutline className="size-7" />
-                            </div>
-                            <div className="flex-1">
-                                <h4 className="text-lg font-semibold mb-1">Visi :</h4>
-                                <p className="text-gray-600">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur ratione praesentium asperiores repudiandae? Ullam, quasi!
-                                </p>
-                            </div>
-                        </li>
-                        <li className="flex gap-5">
-                            <div className="flex-none mt-1">
-                                <IoLocateOutline className="size-7"/>
-                            </div>
-                            <div className="flex-1">
-                                <h4 className="text-lg font-semibold mb-1">Misi :</h4>
-                                <p className="text-gray-600">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae placeat fugiat quia unde expedita, impedit sint adipisci cum nisi eum eos nostrum esse sequi distinctio et modi delectus repellendus eligendi animi dolor, quasi rem pariatur. A atque placeat facere, praesentium earum dolor deleniti facilis nisi nihil quos sit doloremque voluptatem.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+                    <p className="text-gray-700 py-5">
+                        Sistem ini mensimulasikan operasional sebuah hotel modern, mulai dari pencarian kamar, reservasi online, hingga manajemen kamar oleh admin hotel.
+                    </p>
+                            <p className="text-gray-700 py-5 text-justify">
+                                Hotel dalam proyek ini memiliki konsep “Modern Luxury Experience”, yaitu menggabungkan kemewahan interior dengan kemudahan digital.
+                                Dengan tampilan elegan berwarna emas dan hitam, Nyaline.id menggambarkan nuansa eksklusif yang cocok untuk hotel berbintang lima.
+                            </p>
                 </div>
             </div>
         </div>
