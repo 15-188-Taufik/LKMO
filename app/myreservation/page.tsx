@@ -26,9 +26,11 @@ const MyReservationPage = async () => {
     </header>
 
     {/* Reservation List Section */}
-    <section className="rounded-lg bg-white shadow-sm border border-gray-200 p-4">
-      <MyReserveList />
-    </section>
+    <div className="">
+      <section className="rounded-lg bg-white shadow-sm border border-gray-200 p-4">
+        <MyReserveList />
+      </section>
+    </div>
 
   </div>
 </div>

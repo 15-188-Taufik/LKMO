@@ -1,7 +1,7 @@
 import { getRoom } from "@/lib/data"
 import Image from "next/image";
 import { formatDate,formatCurrency } from "@/lib/utils";
-import { DeleteButton, EditButton } from "./button";
+import { DeleteButton, EditButton } from "@components/admin/room/button";
 
 
 const RoomTable = async() => {

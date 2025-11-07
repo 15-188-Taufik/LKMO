@@ -53,12 +53,14 @@ export const saveRoom = async (image: string, prevState: unknown, formData: Form
 // DELETE ROOM
 export const deleteRoom = async (id: string, image: string) => {
   try {
-    if (image) await del(image).catch(() => console.warn("Image not deleted (maybe invalid URL)"));
-    await prisma.room.delete({ where: { id } });
-    revalidatePath("/admin/room");
+    await del(image);
+    await prisma.room.delete({
+      where: {id}
+    })
   } catch (error) {
     console.error(error);
   }
+  revalidatePath("/admin/room");
 };
 
 //Create Reserve room
