@@ -20,3 +20,22 @@ export type reservationProps = Prisma.ReservationGetPayload<{
         
     }
 }>
+
+export interface Reservation {
+    id: string;
+    User: {
+      name: string;
+    };
+    Room: {
+      name: string;
+      image: string;
+    };
+    startDate: Date;
+    endDate: Date;
+    createdAt: Date;
+    price: number;
+    Payment?: {
+      status: string;
+    };
+  }
+  

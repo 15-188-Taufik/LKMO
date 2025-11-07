@@ -1,5 +1,6 @@
 import {prisma} from "@/lib/prisma";
 import { auth } from "@/auth";
+import {Room} from "@prisma/client";
 
 export const getAmenities =async () => {
     const session = await auth();
@@ -14,7 +15,7 @@ export const getAmenities =async () => {
     }
 }
 
-export const getRoom =async () => {
+export const getRoom =async () : Promise<Room[]> => {
     
     try {
         const result = await prisma.room.findMany({
@@ -23,6 +24,7 @@ export const getRoom =async () => {
         return result;
     } catch (error) {
         console.log(error);
+        return [];
     }
 }
 export const getRoomById = async (roomId: string) => {
@@ -54,6 +56,7 @@ export const getRoomDetailById = async (roomId: string) => {
       });
       return result;
     } catch (error) {
+      console.log("Fetching room by ID:", roomId);
       console.log(error);
       return null;
     }
@@ -99,8 +102,10 @@ export const getReservationById = async (id: string) => {
           Payment: {status: {not: "failure"}}
         }
       })
+      return result
     } catch (error) {
       console.log(error);
+      return [];
     }
   };
   export const getReservationByUserId = async () => {
@@ -136,6 +141,7 @@ export const getReservationById = async (id: string) => {
           createdAt: "desc",
         }
       })
+      return result
     } catch (error) {
       console.log(error);
     }
@@ -207,6 +213,7 @@ export const getReservationById = async (id: string) => {
           createdAt: "desc",
         }
       })
+      return result
     } catch (error) {
       console.log(error);
     }

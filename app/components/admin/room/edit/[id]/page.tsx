@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import EditRoom from "@/components/admin/room/edit-room";
+import EditRoom from "@components/admin/room/edit-room";
 import React, { Suspense } from "react";
 
 const UpdateRoomPage = async ({

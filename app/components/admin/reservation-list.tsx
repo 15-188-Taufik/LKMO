@@ -1,7 +1,6 @@
 import { getReservations } from "@/lib/data"
 import Image from "next/image";
 import { formatDate,formatCurrency } from "@/lib/utils";
-import ReserveForm from "../reserve-form";
 
 
 const ReservationList = async() => {

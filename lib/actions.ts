@@ -82,7 +82,7 @@ export const createReserve = async (
 
   if (!validatedFields.success) {
     return {
-      error: validatedFields.error.flatten().fieldErrors
+      error: validatedFields.error.flatten().fieldErrors,
     }
   }
 
@@ -103,10 +103,10 @@ export const createReserve = async (
       });
       const reservation = await tx.reservation.create({
         data: {
-          startDate: startDate,
-          endDate: endDate,
-          price: price,
-          roomId: roomId,
+          startDate,
+          endDate,
+          price,
+          roomId,
           userId: session.user.id as string, 
           Payment: {
             create: {
@@ -120,7 +120,7 @@ export const createReserve = async (
   } catch (error) {
     console.log(error)
   }
-  redirect(`/checkout/$(reservationId)`);
+  redirect(`/checkout/${reservationId}`);
 };
 
 // UPDATE ROOM

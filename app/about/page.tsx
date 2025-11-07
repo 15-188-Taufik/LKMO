@@ -2,7 +2,7 @@
 import {Metadata} from "next"
 import {IoEyeOutline, IoLocateOutline} from "react-icons/io5";
 import Image from "next/image";
-import HeaderSection from "../components/header-section";
+import HeaderSection from "@components/header-section";
 
 export const metadata: Metadata = {
     title: "About",

@@ -11,7 +11,7 @@ const RoomDetail = async ({roomId}: {roomId: string}) => {
     console.log("Room result:", room);
 
 
-    if(!room || disabledDate) return notFound();
+    if(!room || disabledDate === undefined) return notFound();
   return (
     <div className="max-w-screen-xl py-16 px-4 grid lg:grid-cols-12 gap-8 mx-auto">
         <div className="md:col-span-8">
@@ -28,7 +28,7 @@ const RoomDetail = async ({roomId}: {roomId: string}) => {
                 ))}
             </div>
         </div>
-        <div className="md:col-end-4">
+        <div className="md:col-span-4">
             <div className="border-2 border-gray-300 border-dashed px-3 py-5 bg-slate-50 rounded-md">
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center space-x-2">

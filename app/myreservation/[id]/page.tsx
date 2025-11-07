@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import ReservationDetail from '@/app/components/reservation-detail';
+import ReservationDetail from '@components/reservation-detail';
 import { Suspense } from 'react';
 
 export const metadata: Metadata ={
@@ -17,7 +17,7 @@ const MyReservationDetail = async ({
         <div className="max-2-screen-lg mx-auto mt-10 py-20 px-4">
             {/* reservation detail */}
             <Suspense fallback={<p>Loading...</p>}>
-                <ReservationDetail reservationId={reservationId/>
+                <ReservationDetail reservationId={reservationId}/>
             </Suspense>
         </div>
     </div>
