@@ -4,18 +4,23 @@ import { Suspense } from 'react';
 
 const UpdateRoomPage = async ({
     params
-}:{
-    params:{id: string}
+}: {
+    params: { id: string }
 }) => {
-    const roomId = (await params).id;
-    if(!roomId) return notFound();
-  return (
-    <div className="max-w-screen-xl py-4 py16 mt-10 mx-auto">
-        <Suspense fallback={<p>Loading...</p>}>
-            <EditRoom roomId={roomId}/>
-        </Suspense>
-    </div>
-  )
+    
+    // PERBAIKAN: Hapus 'await' dan '()'
+    // 'params' adalah objek, jadi 'id' bisa langsung diakses
+    const roomId = params.id; 
+
+    if (!roomId) return notFound();
+
+    return (
+        <div className="max-w-screen-xl py-4 py16 mt-10 mx-auto">
+            <Suspense fallback={<p>Loading...</p>}>
+                <EditRoom roomId={roomId} />
+            </Suspense>
+        </div>
+    )
 }
 
 export default UpdateRoomPage
