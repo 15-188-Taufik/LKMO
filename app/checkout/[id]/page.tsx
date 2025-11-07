@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: "Reservation Summary",
 };
 
-const CheckoutPage = async ({ params }: { params: { id: string } }) => {
-  const reservationId = params.id;
+const CheckoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id: reservationId } = await params;
 
   return (
     <div className="max-w-screen-xl px-4 mx-auto py-20 mt-12">

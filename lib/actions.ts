@@ -150,29 +150,35 @@ export const updateRoom = async (
   const { name, description, price, capacity, amenities } = validatedFields.data;
 
   try {
-    await prisma.$transaction([
-      prisma.room.update({
-        where: { id: roomId },
-        data: {
-          name,
-          description,
-          image,
-          price,
-          capacity,
-          RoomAmenities: {
-            deleteMany: {},
-          },
-        },
-      }),
-      prisma.roomAmenities.createMany({
+    // Delete existing amenities first
+    await prisma.roomAmenities.deleteMany({
+      where: { roomId },
+    });
+
+    // Update room and create new amenities
+    await prisma.room.update({
+      where: { id: roomId },
+      data: {
+        name,
+        description,
+        image,
+        price,
+        capacity,
+      },
+    });
+
+    // Create new amenities if any
+    if (amenities.length > 0) {
+      await prisma.roomAmenities.createMany({
         data: amenities.map((item) => ({
           roomId,
           amenitiesId: item,
         })),
-      }),
-    ]);
+      });
+    }
   } catch (error) {
-    console.error(error);
+    console.error("Update room error:", error);
+    return { message: "Failed to update room. Please try again." };
   }
 
   revalidatePath("/admin/room");

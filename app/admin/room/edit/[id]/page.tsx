@@ -5,17 +5,16 @@ import { Suspense } from 'react';
 const UpdateRoomPage = async ({
     params
 }: {
-    params: { id: string }
+    params: Promise<{ id: string }>
 }) => {
     
-    // PERBAIKAN: Hapus 'await' dan '()'
-    // 'params' adalah objek, jadi 'id' bisa langsung diakses
-    const roomId = params.id; 
+    // PERBAIKAN: Di Next.js 15, params adalah Promise
+    const { id: roomId } = await params;
 
     if (!roomId) return notFound();
 
     return (
-        <div className="max-w-screen-xl py-4 py16 mt-10 mx-auto">
+        <div className="max-w-screen-xl py-4 py-16 mt-10 mx-auto">
             <Suspense fallback={<p>Loading...</p>}>
                 <EditRoom roomId={roomId} />
             </Suspense>
